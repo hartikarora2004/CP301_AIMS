@@ -1,0 +1,116 @@
+/* General reset for padding and margin */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Header and footer styling */
+  .header, .footer {
+    background-color: #3a3a3a;  /* Softer greyish-black */
+    color: white;
+    text-align: center;
+    font-size: 16px;  /* Smaller font size */
+    font-weight: 500; /* Semi-bold for better prominence */
+    padding: 6px 0;   /* Smaller height */
+  }
+  
+  .footer {
+    font-size: 12px;  /* Smaller font size for footer */
+    margin-top: 10px;
+  }
+  
+  /* Content styling */
+  .content {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+  }
+  
+  /* Login form styling */
+  .login-option {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 350px;  /* Make the form smaller */
+  }
+  
+  h2 {
+    font-size: 20px;  /* Smaller heading */
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Form styling */
+  .otp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    font-size: 13px;  /* Smaller font size */
+    color: #333;
+  }
+  
+  input[type="email"], input[type="text"] {
+    padding: 10px;
+    font-size: 14px;  /* Smaller font size */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  input[type="email"]:focus, input[type="text"]:focus {
+    border-color: #4CAF50;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 14px;  /* Smaller font size */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+  
+  .send-otp-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .send-otp-button:hover:enabled {
+    background-color: #45a049;
+  }
+  
+  .send-otp-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .verify-otp-button {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .verify-otp-button:hover:enabled {
+    background-color: #0056b3;
+  }
+  
+  .verify-otp-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    font-size: 12px;  /* Smaller error font size */
+    margin-top: 5px;
+  }
+  
