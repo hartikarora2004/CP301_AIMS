@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/login";
 import Faculty from "./components/faculty";
 import FacultyCourses from "./components/facultyCourse.jsx";
+import ApproveCourse from "./components/ApproveCourses.jsx";
+import CreateCourseForm from "./components/CreateCourse.jsx";
 import "./App.css";
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/faculty" element={<Faculty />} />
           <Route path="/faculty/courses" element={<FacultyCourses />}/>
+          <Route path="/faculty/approve-course" element={<ApproveCourse  />}/>
+          <Route path="/faculty/createcourse" element={<CreateCourseForm />} />
         </Routes>
       </div>
     </Router>

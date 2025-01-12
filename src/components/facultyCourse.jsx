@@ -2,8 +2,14 @@ import React from "react";
 import Navbar from "./navbar";
 import "./facultyCourses.css";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 const FacultyCourses = () => {
+  const navigate = useNavigate();
+  function handleRedirect(){
+    navigate("/faculty/createcourse");
+  }
+
   const results = [
     {
       id: 1,
@@ -75,7 +81,7 @@ const FacultyCourses = () => {
               </div>
             ))}
           </div>
-          <button className="action-button">Add a Course</button>
+          <button className="action-button" onClick={handleRedirect}>Add a Course</button>
         </div>
       </div>
     </div>

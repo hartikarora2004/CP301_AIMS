@@ -6,9 +6,9 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo">AIMS</div>
       <div className="menu">
-        <a href="faculty/courses">Courses Offered</a>
+        <a href="/faculty/courses">Courses Offered</a>
         <a href="#">Registered Courses</a>
-        <a href="#">Approved Courses</a>
+        <a href="/faculty/approve-course">Approve Courses</a>
 
       </div>
       <div className="profile">
