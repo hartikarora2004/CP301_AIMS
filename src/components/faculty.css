@@ -1,0 +1,42 @@
+.home-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .warning {
+    font-size: 1rem;
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .user-guide-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .user-guide-link:hover {
+    text-decoration: underline;
+  }
+  
+  .note-section h3 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .note-section ul {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+  
+  .note-section li {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  

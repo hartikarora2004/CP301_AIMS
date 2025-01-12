@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/login";
 import Faculty from "./components/faculty";
+import FacultyCourses from "./components/facultyCourse.jsx";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Login /> */}
         <Routes>
           <Route path="/faculty" element={<Faculty />} />
+          <Route path="/faculty/courses" element={<FacultyCourses />}/>
         </Routes>
       </div>
     </Router>
