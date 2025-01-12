@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react";// Importing your Nav component
 import "./login.css";
 
 function Login() {
