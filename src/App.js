@@ -5,6 +5,11 @@ import MainLogin from "./components/mainloginPage.jsx";
 import FacultyCourses from "./components/facultyCourse.jsx";
 import ApproveCourse from "./components/ApproveCourses.jsx";
 import CreateCourseForm from "./components/CreateCourse.jsx";
+import Student from "./components/student.jsx";
+import StudentDetails from "./components/student_record.jsx";
+import OpenCourses from "./components/open_courses.jsx";
+import Registered_course_status from "./components/Registered_course_status.jsx";
+import CreateStudent from "./components/create_student.jsx";
 import "./App.css";
 
 function App() {
@@ -17,6 +22,11 @@ function App() {
           <Route path="/faculty/courses" element={<FacultyCourses />}/>
           <Route path="/faculty/approve-course" element={<ApproveCourse  />}/>
           <Route path="/faculty/createcourse" element={<CreateCourseForm />} />
+          <Route path="/student" element={<Student />} />
+          <Route path="/student/student-record" element={<StudentDetails />} />
+          <Route path="/student/open-courses" element={<OpenCourses />} />
+          <Route path="/student/registered-course-status" element={<Registered_course_status />} />
+          <Route path="/student/create-student" element={<CreateStudent />} />
         </Routes>
       </div>
     </Router>

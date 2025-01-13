@@ -4,10 +4,11 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="logo">AIMS</div>
+      <div className="logo">
+        <a href="/faculty" style={{ color: "white", textDecoration: "none" }}>AIMS</a></div>
       <div className="menu">
         <a href="/faculty/courses">Courses Offered</a>
-        <a href="#">Registered Courses</a>
+        {/* <a href="#">Registered Courses</a> */}
         <a href="/faculty/approve-course">Approve Courses</a>
 
       </div>
