@@ -1,0 +1,57 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar .menu a:hover {
+    color: #ffdd57;
+}
+
+.navbar .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .profile span {
+    font-size: 14px;
+}
+
+.navbar .profile .logout {
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .profile .logout:hover {
+    background-color: #b52a3b;
+}
