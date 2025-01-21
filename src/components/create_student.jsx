@@ -8,6 +8,7 @@ const CreateStudent = () => {
   const [studentEntry, setStudentEntry] = useState("");
   const [studentYear, setStudentYear] = useState("");
   const [studentDept, setStudentDept] = useState("");
+  const [studentAdvisor, setStudentAdvisor] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +19,7 @@ const CreateStudent = () => {
       studentEntry,
       studentYear,
       studentDept,
+      studentAdvisor,
     };
 
     try {
@@ -38,6 +40,7 @@ const CreateStudent = () => {
         setStudentEntry("");
         setStudentYear("");
         setStudentDept("");
+        setStudentAdvisor("");
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
@@ -138,6 +141,18 @@ const CreateStudent = () => {
                 Metallurgical and Materials Engineering
               </option>
             </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="studentAdvisor">Student Advisor</label>
+            <input
+              type="text"
+              id="studentAdvisor"
+              value={studentAdvisor}
+              onChange={(e) => setStudentAdvisor(e.target.value)}
+              placeholder="Enter student Advisor"
+              required
+            />
           </div>
 
           <button type="submit" className="submit-btn">

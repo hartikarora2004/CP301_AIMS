@@ -53,3 +53,38 @@
     cursor: pointer;
   }
   
+
+  .ApproveTable {
+    margin: 20px auto;
+    width: 80%;
+  }
+  
+  .ApproveTable h2, .ApproveTable h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  

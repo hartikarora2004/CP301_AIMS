@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CreateCourse.css";
 import Navbar from "./navbar";
 
@@ -6,79 +6,136 @@ const CreateCourseForm = () => {
   const [courseName, setCourseName] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
+  const [semester, setSemester] = useState("");
+  const [instructorName, setInstructorName] = useState("");
+  const [offeringDept, setOfferingDept] = useState("");
 
-  const handleSubmit = (e) => {
+  // UseEffect to set instructorName
+  useEffect(() => {
+    const name = localStorage.getItem('instructorName');
+    console.log("UseEffect: Instructor name from localStorage:", name);
+    if (name) {
+      setInstructorName(name);
+    }
+  }, []);  // Empty dependency array ensures this runs only once after the initial render
+
+  // Log instructorName after it has been set
+  useEffect(() => {
+    if (instructorName) {
+      console.log('Instructor Name:', instructorName); // This will log the updated instructorName
+    }
+  }, [instructorName]);  // This useEffect will run whenever instructorName changes
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Course Created:", { courseName, courseCode, description, duration });
-    alert("Course Created Successfully!");
-    setCourseName("");
-    setCourseCode("");
-    setDescription("");
-    setDuration("");
+
+    const _id = localStorage.getItem('_id');
+    const courseData = {
+      courseName,
+      courseCode,
+      description,
+      semester,
+      _id,
+      offeringDept,
+    };
+    
+    console.log("Course Data:", courseData);
+    try {
+      const response = await fetch("http://localhost:5000/api/courses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      });
+      console.log(response);
+      if (response.ok) {
+        alert("Course Created Successfully!");
+        setCourseName("");
+        setCourseCode("");
+        setDescription("");
+        setSemester("");
+        setOfferingDept("");
+      } else {
+        alert("Failed to create course.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error creating course. Please try again later.");
+    }
   };
 
   return (
     <div>
-        <Navbar />
-        <div className="form-container">
+      <Navbar />
+      <div className="form-container">
         <h2>Create a New Course</h2>
         <form className="course-form" onSubmit={handleSubmit}>
-            <div className="form-group">
+          <div className="form-group">
             <label htmlFor="courseName">Course Name</label>
             <input
-                type="text"
-                id="courseName"
-                value={courseName}
-                onChange={(e) => setCourseName(e.target.value)}
-                placeholder="Enter course name"
-                required
+              type="text"
+              id="courseName"
+              value={courseName}
+              onChange={(e) => setCourseName(e.target.value)}
+              placeholder="Enter course name"
+              required
             />
-            </div>
+          </div>
 
-            <div className="form-group">
+          <div className="form-group">
+            <label htmlFor="offeringDept">Offering Department</label>
+            <input
+              type="text"
+              id="offeringDept"
+              value={offeringDept}
+              onChange={(e) => setOfferingDept(e.target.value)}
+              placeholder="Enter department name"
+              required
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="courseCode">Course Code</label>
             <input
-                type="text"
-                id="courseCode"
-                value={courseCode}
-                onChange={(e) => setCourseCode(e.target.value)}
-                placeholder="Enter course code"
-                required
+              type="text"
+              id="courseCode"
+              value={courseCode}
+              onChange={(e) => setCourseCode(e.target.value)}
+              placeholder="Enter course code"
+              required
             />
-            </div>
+          </div>
 
-            <div className="form-group">
+          <div className="form-group">
             <label htmlFor="description">Description</label>
             <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter course description"
-                required
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Enter course description"
+              required
             ></textarea>
-            </div>
+          </div>
 
-            <div className="form-group">
-            <label htmlFor="duration">Duration (in weeks)</label>
+          <div className="form-group">
+            <label htmlFor="semester">Semester</label>
             <input
-                type="number"
-                id="duration"
-                value={duration}
-                onChange={(e) => setDuration(e.target.value)}
-                placeholder="Enter duration"
-                required
-                min="1"
+              type="text"
+              id="semester"
+              value={semester}
+              onChange={(e) => setSemester(e.target.value)}
+              placeholder="Enter semester"
+              required
             />
-            </div>
+          </div>
 
-            <button type="submit" className="submit-btn">
+          <button type="submit" className="submit-btn">
             Create Course
-            </button>
+          </button>
         </form>
-        </div>
+      </div>
     </div>
-    
   );
 };
 

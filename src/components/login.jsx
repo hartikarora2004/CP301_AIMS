@@ -1,32 +1,110 @@
-import React, { useState } from "react";// Importing your Nav component
+import React, { useState } from "react";
+import { useAuth } from "../context/authContext"; // Import useAuth for authentication
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState(""); // State to store error messages
-  const [otpSent, setOtpSent] = useState(false); // State to track if OTP is sent
+  const [error, setError] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [role, setRole] = useState("");
+  const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSendOtp = () => {
-    // Check if email ends with '@iitrpr.ac.in'
+  const { login } = useAuth(); // Access login function from context
+  const navigate = useNavigate(); // Initialize navigate for routing
+
+  const handleSendOtp = async () => {
     if (!email.endsWith("@iitrpr.ac.in")) {
       setError("Please enter a valid IIT Ropar email address.");
       return;
     }
     setError(""); // Clear any previous error messages
-    setOtpSent(true); // OTP sent
-    alert(`Sending OTP to ${email}`);
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/sendOtp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setOtpSent(true);
+        alert('OTP sent successfully!');
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError('Error sending OTP');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleVerifyOtp = () => {
-    // Check if OTP is a 6-digit number
+  const handleVerifyOtp = async () => {
     const otpPattern = /^\d{6}$/;
     if (!otp.match(otpPattern)) {
       setError("OTP must be a 6-digit number.");
       return;
     }
     setError(""); // Clear any previous error messages
-    alert(`Verifying OTP: ${otp}`);
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/verifyOtp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, otp })
+      });
+
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setRole(data.role);
+        setUsername(data.username);
+        localStorage.setItem('instructorName', data.usrname);
+        localStorage.setItem('_id', data._id);
+        console.log(data.username);
+        console.log(localStorage.getItem('instructorName'));
+        console.log(localStorage.getItem('_id'));
+        login(); // Call login function to update auth context
+        redirectToPage(data.role);
+        console.log(data.role);
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError('Error verifying OTP');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const redirectToPage = (role) => {
+    // Use navigate for routing without page reload
+    if (role === 'student') {
+      navigate("/student");
+    } else if (role === 'faculty') {
+      navigate("/faculty");
+    } else if (role === 'admin') {
+      navigate("/admin");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (otpSent) {
+      handleVerifyOtp();
+    } else {
+      handleSendOtp();
+    }
   };
 
   return (
@@ -35,7 +113,7 @@ function Login() {
       <main className="content">
         <div className="login-option">
           <h2>Login with Email and OTP</h2>
-          <form className="otp-form">
+          <form className="otp-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Enter your Email:</label>
             <input
               type="email"
@@ -45,37 +123,38 @@ function Login() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            {error && !otpSent && <div className="error-message">{error}</div>} {/* Show error below email input if OTP hasn't been sent */}
+            {error && !otpSent && <div className="error-message">{error}</div>}
 
             <button
-              type="button"
+              type="submit"
               className="send-otp-button"
-              onClick={handleSendOtp}
-              disabled={!email}
+              disabled={!email || loading}
             >
-              Send OTP
+              {loading ? "Sending..." : "Send OTP"}
             </button>
 
-            <label htmlFor="otp">Enter OTP:</label>
-            <input
-              type="text"
-              id="otp"
-              placeholder="Enter the OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              required
-              disabled={!otpSent}
-            />
-            {error && otpSent && <div className="error-message">{error}</div>} {/* Show error below OTP input if OTP is sent */}
+            {otpSent && (
+              <>
+                <label htmlFor="otp">Enter OTP:</label>
+                <input
+                  type="text"
+                  id="otp"
+                  placeholder="Enter the OTP"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  required
+                />
+                {error && otpSent && <div className="error-message">{error}</div>}
 
-            <button
-              type="button"
-              className="verify-otp-button"
-              onClick={handleVerifyOtp}
-              disabled={!otp || !otpSent}
-            >
-              Verify OTP
-            </button>
+                <button
+                  type="submit"
+                  className="verify-otp-button"
+                  disabled={!otp || loading}
+                >
+                  {loading ? "Verifying..." : "Verify OTP"}
+                </button>
+              </>
+            )}
           </form>
         </div>
       </main>

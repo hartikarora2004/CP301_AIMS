@@ -1,89 +1,79 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./open_courses.css";
 import "./login.css";
-//import { useNavigate } from "react-router-dom";
 import Navbar_student from "./navbar_student";
 
-
 const OpenCourses = () => {
-    //   const navigate = useNavigate();
-//   function handleRedirect(){
-//     navigate("/faculty/createcourse");
-//   }
+  const [courses, setCourses] = useState([]);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
 
-  const results = [
-    {
-      id: 1,
-      code: "CS301",
-      title: "Introduction to Databases",
-      details: "3-0-0-6.00-3.00",
-      credits: 3.0,
-      status: "Completed",
-      session: "2024-I",
-      enrollment: "138 in Sec.-A",
-      offeredBy: "Dept. of Computer Science",
-      instructor: "Ravi Kumar",
-    },
-    {
-      id: 2,
-      code: "HS406",
-      title: "MANAGERIAL SCIENCE",
-      details: "3-0-0-6.00-3.00",
-      credits: 3.0,
-      status: "Completed",
-      session: "2022-S",
-      enrollment: "5 in Sec.-A",
-      offeredBy: "Dept. of Humanities and Social Sciences",
-      instructor: "Ravi Kumar",
-    },
-    {
-      id: 3,
-      code: "HS406",
-      title: "MANAGERIAL SCIENCE",
-      details: "3-0-0-6.00-3.00",
-      credits: 3.0,
-      status: "Completed",
-      session: "2022-II",
-      enrollment: "57 in Sec.-A",
-      offeredBy: "Dept. of Humanities and Social Sciences",
-      instructor: "Ravi Kumar",
-    },
-  ];
+  // Fetch courses from backend when the component mounts
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/courses"); // Endpoint for courses
+        const data = await response.json();
+        console.log(data);
+        setCourses(data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+    
+    fetchCourses();
+  }, []); // Empty dependency array means this runs once when the component mounts
+
+  const handleEnroll = async (courseId) => {
+    const studentId = localStorage.getItem('_id');
+    console.log("Student ID = ", studentId);
+    console.log("Course ID = ", courseId);
+    const response = await fetch("http://localhost:5000/api/enroll", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ studentId, courseId }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setEnrolledCourses((prev) => [...prev, courseId]);
+      alert(data.message);
+    } else {
+      const errorData = await response.json();
+      alert(errorData.message);
+    }
+  };
 
   return (
     <div className="OpenCourses">
       <Navbar_student />
       <div className="search-results">
         <p className="info">
-          The following list shows the courses floated by the institute in this semester. 
+          The following list shows the courses floated by the institute in this semester.
         </p>
         <div className="results-container">
-          <h3>Results</h3>
+          <h3>Available Courses</h3>
           <div className="results-list">
-            {results.map((result) => (
-              <div className="result-row" key={result.id}>
+            {courses.map((course) => (
+              <div className="result-row" key={course.id}>
                 <div className="result-checkbox">
-
-                  <input type="checkbox" id={`result-${result.id}`} />
+                  {/* <input type="checkbox" id={`result-${course.id}`} /> */}
                 </div>
                 <div className="result-content">
-                  <label htmlFor={`result-${result.id}`}>
+                  <label htmlFor={`result-${course.id}`}>
                     <a href="#" className="course-link">
-                      {result.id}) {result.code} | {result.title} | {result.details}
+                      {course.courseCode} | {course.courseName} | {course.description}
                     </a>
-                    <p>
-                      <strong>Credits:</strong> {result.credits}. <strong>Status:</strong> {result.status}.{" "}
-                      <strong>Session:</strong> {result.session}.{" "}
-                      <strong>Enrollment:</strong> {result.enrollment}.{" "}
-                      <strong>Offered by:</strong> {result.offeredBy}.{" "}
-                      <strong>Instructor(s):</strong> {result.instructor}.
+                    <p>                
+                      <strong>Session:</strong> {course.semester}.{" "}
+                      <strong>Offered by:</strong> 
+                      <strong>Instructor(s):</strong> {course.instructorName}.
                     </p>
                   </label>
+                  <button onClick={() => handleEnroll(course._id)}>Enroll</button>
                 </div>
               </div>
             ))}
           </div>
-          <button className="action-button" >Enroll for Courses</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,81 @@
+/* General container styling for faculty form */
+.faculty-form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form heading */
+  .faculty-form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  /* Faculty form styling */
+  .faculty-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  /* Form group styling */
+  .faculty-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Label styling */
+  .faculty-form-group label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  /* Input styling */
+  .faculty-form-group input,
+  .faculty-form-group select {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  }
+  
+  .faculty-form-group input:focus,
+  .faculty-form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Button styling */
+  .faculty-submit-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .faculty-submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .faculty-form-container {
+      padding: 1.5rem;
+    }
+  }
+  
