@@ -373,7 +373,7 @@ app.post("/api/enroll", async (req, res) => {
 
 app.get("/api/courses", async (req, res) => {
   try {
-    const courses = await Course.find();  // Fetch courses from database
+    const courses = await Course.find().populate("instructorID", "username");  // Fetch courses from database
     res.json(courses);  // Send courses as response
   } catch (error) {
     console.error("Error fetching courses:", error);
@@ -461,6 +461,23 @@ app.get("/api/faculty-courses", async (req, res) => {
   } catch (error) {
     console.error("Error fetching faculty courses:", error);
     res.status(500).json({ message: "Failed to fetch faculty courses." });
+  }
+});
+
+
+// Student Record 
+app.get("/api/student-details" , async (req, res) => {
+  try {
+    const student = req.headers["student-id"];
+    console.log(student);
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    const studentRecord = await User.findById(student);
+    console.log(studentRecord);
+    res.json(studentRecord);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 });
 

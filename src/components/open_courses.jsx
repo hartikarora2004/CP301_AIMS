@@ -6,7 +6,16 @@ import Navbar_student from "./navbar_student";
 const OpenCourses = () => {
   const [courses, setCourses] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
-
+  const [studentDetails, setStudentDetails] = useState({
+      firstName: "",
+      lastName: "",
+      mail: "",
+      entryNumber: "",
+      year: "",
+      dept: "",
+      degree: "",
+      category: "",
+    });
   // Fetch courses from backend when the component mounts
   useEffect(() => {
     const fetchCourses = async () => {
@@ -22,6 +31,33 @@ const OpenCourses = () => {
     
     fetchCourses();
   }, []); // Empty dependency array means this runs once when the component mounts
+
+  useEffect(() => {
+      // Fetch the details for the logged-in student
+      const fetchStudentDetails = async () => {
+        try {
+          const response = await fetch("http://localhost:5000/api/student-details", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "student-id": localStorage.getItem("_id"), // Assuming the student ID is stored in localStorage
+            },
+          });
+  
+          if (response.ok) {
+            const data = await response.json();
+  
+            setStudentDetails(data); // Set the fetched student details in the state
+          } else {
+            console.error("Failed to fetch student details.");
+          }
+        } catch (error) {
+          console.error("Error fetching student details:", error);
+        }
+      };
+  
+        fetchStudentDetails(); // Fetch student details when component mounts
+    }, []);
 
   const handleEnroll = async (courseId) => {
     const studentId = localStorage.getItem('_id');
@@ -45,7 +81,7 @@ const OpenCourses = () => {
 
   return (
     <div className="OpenCourses">
-      <Navbar_student />
+      <Navbar_student entryNumber={studentDetails.entryNo} />
       <div className="search-results">
         <p className="info">
           The following list shows the courses floated by the institute in this semester.
@@ -65,8 +101,8 @@ const OpenCourses = () => {
                     </a>
                     <p>                
                       <strong>Session:</strong> {course.semester}.{" "}
-                      <strong>Offered by:</strong> 
-                      <strong>Instructor(s):</strong> {course.instructorName}.
+                      <strong>Offered by:</strong> {course.offeringDept}.{" "}
+                      <strong>Instructor(s):</strong> {course.instructorID.username}.
                     </p>
                   </label>
                   <button onClick={() => handleEnroll(course._id)}>Enroll</button>
