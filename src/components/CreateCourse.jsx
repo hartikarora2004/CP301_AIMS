@@ -10,16 +10,15 @@ const CreateCourseForm = () => {
   const [instructorName, setInstructorName] = useState("");
   const [offeringDept, setOfferingDept] = useState("");
 
-  // UseEffect to set instructorName
+
   useEffect(() => {
     const name = localStorage.getItem('instructorName');
     console.log("UseEffect: Instructor name from localStorage:", name);
     if (name) {
       setInstructorName(name);
     }
-  }, []);  // Empty dependency array ensures this runs only once after the initial render
+  }, []);  
 
-  // Log instructorName after it has been set
   useEffect(() => {
     if (instructorName) {
       console.log('Instructor Name:', instructorName); // This will log the updated instructorName

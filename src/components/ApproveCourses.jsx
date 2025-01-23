@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./ApproveCourse.css";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 
 const ApproveCourses = () => {
   const [instructorApprovals, setInstructorApprovals] = useState([]);
   const [advisorApprovals, setAdvisorApprovals] = useState([]);
-  const userId = localStorage.getItem("_id"); // Assuming the user ID is stored in localStorage
+  const userId = localStorage.getItem("_id"); 
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchApprovalRequests = async () => {
+      if (!userId) {
+        navigate("/"); // Replace "/login" with the actual path of your login page
+        return;
+      }
       try {
         const response = await fetch("http://localhost:5000/api/approval-requests", {
           headers: { "Content-Type": "application/json" },

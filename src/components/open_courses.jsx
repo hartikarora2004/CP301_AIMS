@@ -101,8 +101,13 @@ const OpenCourses = () => {
                     </a>
                     <p>                
                       <strong>Session:</strong> {course.semester}.{" "}
+<<<<<<< Updated upstream
                       <strong>Offered by:</strong> {course.offeringDept}.{" "}
                       <strong>Instructor(s):</strong> {course.instructorID.username}.
+=======
+                      <strong>Offered by:</strong> 
+                      {/* <strong>Instructor(s):</strong> {course.instructorID.username}. */}
+>>>>>>> Stashed changes
                     </p>
                   </label>
                   <button onClick={() => handleEnroll(course._id)}>Enroll</button>

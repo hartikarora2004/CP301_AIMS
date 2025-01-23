@@ -23,10 +23,12 @@ const FacultyCourses = () => {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setCourses(data); // Set the fetched courses in the state
         } else {
           console.error("Failed to fetch courses.");
         }
+        
       } catch (error) {
         console.error("Error fetching courses:", error);
       }
@@ -65,6 +67,8 @@ const FacultyCourses = () => {
                         <strong>Status: Running  | </strong>
                         <strong>Session:</strong> {result.semester} | {" "}
                         <strong>Offered by:</strong> {result.offeringDept} | {" "}
+                        {console.log(result)}
+                        {console.log(result.instructorID)}
                         <strong>Instructor(s):</strong> {result.instructorID.username}
                       </p>
                     </label>
