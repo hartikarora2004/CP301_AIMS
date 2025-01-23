@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./create_faculty.css";
-import Navbar_student from "./navbar_student";
+import Navbar from "./adminnav";
+import { useNavigate } from "react-router-dom";
 
 const CreateFaculty = () => {
+  const navigate = useNavigate();
   const [facultyName, setFacultyName] = useState("");
   const [facultyMail, setFacultyMail] = useState("");
   const [facultyDept, setFacultyDept] = useState("");
@@ -35,6 +37,7 @@ const CreateFaculty = () => {
         const data = await response.json();
         console.log("Faculty Created:", data);
         alert("Faculty Added Successfully!");
+        navigate("/admin");
         setFacultyName("");
         setFacultyMail("");
         setFacultyDept("");
@@ -53,7 +56,7 @@ const CreateFaculty = () => {
 
   return (
     <div>
-      <Navbar_student />
+      <Navbar/>
       <div className="form-container">
         <h2>Add a New Faculty</h2>
         <form className="faculty-form" onSubmit={handleSubmit}>
@@ -131,29 +134,6 @@ const CreateFaculty = () => {
               <option value="Associate Professor">Associate Professor</option>
               <option value="Professor">Professor</option>
             </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="facultyCourses">Courses Instructed</label>
-            <input
-              type="text"
-              id="facultyCourses"
-              value={facultyCourses}
-              onChange={(e) => setFacultyCourses(e.target.value)}
-              placeholder="Enter course names separated by commas"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>
-              <input
-                type="checkbox"
-                checked={isAdvisor}
-                onChange={(e) => setIsAdvisor(e.target.checked)}
-              />
-              Is Faculty an Advisor?
-            </label>
           </div>
 
           <button type="submit" className="submit-btn">

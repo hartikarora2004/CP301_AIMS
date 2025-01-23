@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./create_student.css";
-import Navbar_student from "./navbar_student";
+import Navbar from "./adminnav";
+import { useNavigate } from "react-router-dom";
+
 
 const CreateStudent = () => {
+  const navigate = useNavigate();
   const [studentName, setStudentName] = useState("");
   const [studentMail, setStudentMail] = useState("");
   const [studentEntry, setStudentEntry] = useState("");
@@ -35,6 +38,7 @@ const CreateStudent = () => {
         const data = await response.json();
         console.log("Student Created:", data);
         alert("Student Added Successfully!");
+        navigate("/admin");  
         setStudentName("");
         setStudentMail("");
         setStudentEntry("");
@@ -53,7 +57,7 @@ const CreateStudent = () => {
 
   return (
     <div>
-      <Navbar_student />
+      <Navbar/>
       <div className="form-container">
         <h2>Add a New Student</h2>
         <form className="course-form" onSubmit={handleSubmit}>
