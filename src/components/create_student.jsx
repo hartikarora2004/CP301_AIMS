@@ -60,7 +60,7 @@ const CreateStudent = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/students", {
+      const response = await fetch("http://localhost:5000/api/student/students", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

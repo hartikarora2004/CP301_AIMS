@@ -24,7 +24,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/sendOtp', {
+      const response = await fetch('http://localhost:5000/api/auth/sendOtp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/verifyOtp', {
+      const response = await fetch('http://localhost:5000/api/auth/verifyOtp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

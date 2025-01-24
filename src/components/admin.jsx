@@ -33,7 +33,7 @@ const Admin = () => {
       }
         const fetchAllStudents = async () => {
           try {
-            const response = await fetch("http://localhost:5000/api/students"); // Endpoint to fetch all students
+            const response = await fetch("http://localhost:5000/api/admin/students"); // Endpoint to fetch all students
     
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -57,7 +57,7 @@ const Admin = () => {
       useEffect(() => {
         const fetchAllFaculty = async () => {
           try {
-            const response = await fetch("http://localhost:5000/api/faculty"); // Endpoint to fetch all faculty
+            const response = await fetch("http://localhost:5000/api/admin/faculty"); // Endpoint to fetch all faculty
     
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -79,7 +79,7 @@ const Admin = () => {
 
       const handleDeleteStudent = async (id) => {
         try {
-          const response = await fetch(`/api/students/${id}`, {
+          const response = await fetch(`/api/admin/students/${id}`, {
             method: "DELETE",
           });
           console.log(id);
@@ -98,7 +98,7 @@ const Admin = () => {
 
       const handleDeleteFaculty = async (id) => {
         try {
-          const response = await fetch(`/api/faculty/${id}`, {
+          const response = await fetch(`/api/admin/faculty/${id}`, {
             method: "DELETE",
           });
           console.log(id);

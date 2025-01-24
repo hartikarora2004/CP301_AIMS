@@ -42,7 +42,7 @@ const Registered_course_status = () => {
           return;
         }
         try {
-          const response = await fetch("http://localhost:5000/api/student-details", {
+          const response = await fetch("http://localhost:5000/api/student/student-details", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const Registered_course_status = () => {
             return;
           }
       
-          const response = await fetch(`http://localhost:5000/api/courseEnrollments?studentId=${studentId}`);
+          const response = await fetch(`http://localhost:5000/api/courses/courseEnrollments?studentId=${studentId}`);
           const data = await response.json();
           console.log(data);
           setCourses(data);
