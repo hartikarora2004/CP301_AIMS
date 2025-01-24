@@ -1,7 +1,44 @@
 import Navbar_student from "./navbar_student";
 import "./student.css"
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Student(){
+    const userId = localStorage.getItem("_id");
+      const navigate = useNavigate();
+    
+      useEffect(() => {
+        const Check = async () => {
+          console.log("User ID:", userId);
+          console.log("Role from localStorage:", localStorage.getItem("role"));
+    
+          if (!userId || localStorage.getItem("role") !== "student") {
+            console.warn("Unauthorized access. Redirecting...");
+            if(userId){
+              console.log("Inside If");
+              console.log(localStorage.getItem("role"));
+              if(localStorage.getItem("role") == "student"){
+                navigate("/student");
+                return;
+              } else if(localStorage.getItem("role") == "faculty"){
+                navigate("/faculty");
+                return;
+              } else if(localStorage.getItem("role") == "admin"){
+                navigate("/admin");
+                return;
+              }
+            }
+            navigate("/"); // Replace "/" with the actual path for unauthorized access
+            return;
+          }
+    
+          // Add your logic to fetch approval requests if needed
+          console.log("Fetching approval requests...");
+        };
+        console.log("Checking");
+        Check();
+      }, [userId, navigate]);
+
     return (
         <div>
             <Navbar_student />

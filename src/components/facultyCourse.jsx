@@ -8,10 +8,32 @@ const FacultyCourses = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const facultyId = localStorage.getItem("_id"); // Assuming the faculty ID is stored in localStorage
-
+  const userId = localStorage.getItem("_id"); 
+  
   useEffect(() => {
     // Fetch the courses for the logged-in faculty
     const fetchFacultyCourses = async () => {
+      console.log(userId, localStorage.getItem("role"));
+      if (!userId || localStorage.getItem("role") !== "faculty") {
+        console.warn("Unauthorized access. Redirecting...");
+        if(userId){
+          console.log("Inside If");
+          console.log(localStorage.getItem("role"));
+          if(localStorage.getItem("role") == "student"){
+            navigate("/student");
+            return;
+          } else if(localStorage.getItem("role") == "faculty"){
+            navigate("/faculty");
+            return;
+          } else if(localStorage.getItem("role") == "admin"){
+            navigate("/admin");
+            return;
+          }
+        }
+        navigate("/"); // Replace "/" with the actual path for unauthorized access
+        return;
+      }
+
       try {
         const response = await fetch("http://localhost:5000/api/faculty-courses", {
           method: "GET",
@@ -34,9 +56,7 @@ const FacultyCourses = () => {
       }
     };
 
-    if (facultyId) {
-      fetchFacultyCourses(); // Fetch courses when component mounts
-    }
+    fetchFacultyCourses(); // Fetch courses when component mounts
   }, [facultyId]);
 
   function handleRedirect() {

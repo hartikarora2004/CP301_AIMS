@@ -11,7 +11,23 @@ const ApproveCourses = () => {
 
   useEffect(() => {
     const fetchApprovalRequests = async () => {
-      if (!userId) {
+      console.log(userId, localStorage.getItem("role"));
+      console.log(localStorage.getItem("role") != 'faculty');
+      if (!userId || localStorage.getItem("role") != "faculty") {
+        if(userId){
+          console.log("Inside If");
+          console.log(localStorage.getItem("role"));
+          if(localStorage.getItem("role") == "student"){
+            navigate("/student");
+            return;
+          } else if(localStorage.getItem("role") == "faculty"){
+            navigate("/faculty");
+            return;
+          } else if(localStorage.getItem("role") == "admin"){
+            navigate("/admin");
+            return;
+          }
+        }
         navigate("/"); // Replace "/login" with the actual path of your login page
         return;
       }

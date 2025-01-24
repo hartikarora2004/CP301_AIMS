@@ -8,6 +8,7 @@ const Logout = () => {
   const handleLogout = () => {
     // Remove student-related data from localStorage
     localStorage.removeItem("_id");
+    localStorage.removeItem("role");
     localStorage.removeItem("student_token");
     console.log("Running logout"); // If using token-based authentication
 

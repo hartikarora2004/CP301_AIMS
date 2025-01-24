@@ -373,13 +373,8 @@ app.post("/api/enroll", async (req, res) => {
 
 app.get("/api/courses", async (req, res) => {
   try {
-<<<<<<< Updated upstream
-    const courses = await Course.find().populate("instructorID", "username");  // Fetch courses from database
-    res.json(courses);  // Send courses as response
-=======
     const courses = await Course.find().populate("instructorID", "username");  
     res.json(courses); 
->>>>>>> Stashed changes
   } catch (error) {
     console.error("Error fetching courses:", error);
     res.status(500).json({ message: "Error fetching courses" });

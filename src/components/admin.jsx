@@ -10,8 +10,27 @@ const Admin = () => {
     const [faculty, setFaculty] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const userId = localStorage.getItem("_id"); 
 
     useEffect(() => {
+      if (!userId || localStorage.getItem("role") != "admin") {
+        if(userId){
+          console.log("Inside If");
+          console.log(localStorage.getItem("role"));
+          if(localStorage.getItem("role") == "student"){
+            navigate("/student");
+            return;
+          } else if(localStorage.getItem("role") == "faculty"){
+            navigate("/faculty");
+            return;
+          } else if(localStorage.getItem("role") == "admin"){
+            navigate("/admin");
+            return;
+          }
+        }
+        navigate("/"); // Replace "/login" with the actual path of your login page
+        return;
+      }
         const fetchAllStudents = async () => {
           try {
             const response = await fetch("http://localhost:5000/api/students"); // Endpoint to fetch all students

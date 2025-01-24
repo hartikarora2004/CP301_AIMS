@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar_student from "./navbar_student";
 import "./student_record.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 const StudentDetails = () => {
   const [studentDetails, setStudentDetails] = useState({
@@ -14,9 +15,31 @@ const StudentDetails = () => {
     category: "",
   });
 
+  const userId = localStorage.getItem("_id");
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Fetch the details for the logged-in student
     const fetchStudentDetails = async () => {
+      if (!userId || localStorage.getItem("role") !== "student") {
+        console.warn("Unauthorized access. Redirecting...");
+        if(userId){
+          console.log("Inside If");
+          console.log(localStorage.getItem("role"));
+          if(localStorage.getItem("role") == "student"){
+            navigate("/student");
+            return;
+          } else if(localStorage.getItem("role") == "faculty"){
+            navigate("/faculty");
+            return;
+          } else if(localStorage.getItem("role") == "admin"){
+            navigate("/admin");
+            return;
+          }
+        }
+        navigate("/"); // Replace "/" with the actual path for unauthorized access
+        return;
+      }
       try {
         const response = await fetch("http://localhost:5000/api/student-details", {
           method: "GET",

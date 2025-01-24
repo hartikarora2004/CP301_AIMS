@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Navbar_student from "./navbar_student";
 import "./Registered_course_status.css";
+import { useNavigate } from "react-router-dom";
 
 const Registered_course_status = () => {
   const [courses, setCourses] = useState([]);
-  const studentId = localStorage.getItem("_id"); // Ensure studentId is stored in localStorage
+  const userId = localStorage.getItem("_id");
+  const navigate = useNavigate();
   const [studentDetails, setStudentDetails] = useState({
       firstName: "",
       lastName: "",
@@ -19,7 +20,27 @@ const Registered_course_status = () => {
 
   useEffect(() => {
       // Fetch the details for the logged-in student
+      
       const fetchStudentDetails = async () => {
+        if (!userId || localStorage.getItem("role") !== "student") {
+          console.warn("Unauthorized access. Redirecting...");
+          if(userId){
+            console.log("Inside If");
+            console.log(localStorage.getItem("role"));
+            if(localStorage.getItem("role") == "student"){
+              navigate("/student");
+              return;
+            } else if(localStorage.getItem("role") == "faculty"){
+              navigate("/faculty");
+              return;
+            } else if(localStorage.getItem("role") == "admin"){
+              navigate("/admin");
+              return;
+            }
+          }
+          navigate("/"); // Replace "/" with the actual path for unauthorized access
+          return;
+        }
         try {
           const response = await fetch("http://localhost:5000/api/student-details", {
             method: "GET",

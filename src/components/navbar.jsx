@@ -1,5 +1,7 @@
 import React from "react";
 import "./Navbar.css";
+import Logout from "./logout";
+import "../assets/download.png";
 
 const Navbar = () => {
   return (
@@ -13,8 +15,8 @@ const Navbar = () => {
 
       </div>
       <div className="profile">
-        <span>2022CSB1329 (Student)</span>
-        <div className="logout">🔴</div>
+        <span>(Faculty)</span>
+        <Logout />
       </div>
     </nav>
   );

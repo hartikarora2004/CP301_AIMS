@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./create_faculty.css";
 import Navbar from "./adminnav";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,39 @@ const CreateFaculty = () => {
   const [facultyProfession, setFacultyProfession] = useState("");
   const [facultyCourses, setFacultyCourses] = useState("");
   const [isAdvisor, setIsAdvisor] = useState(false);
+  const userId = localStorage.getItem("_id"); 
+
+  useEffect(() => {
+    const Check = async () => {
+      console.log("User ID:", userId);
+      console.log("Role from localStorage:", localStorage.getItem("role"));
+
+      if (!userId || localStorage.getItem("role") !== "admin") {
+        console.warn("Unauthorized access. Redirecting...");
+        if(userId){
+          console.log("Inside If");
+          console.log(localStorage.getItem("role"));
+          if(localStorage.getItem("role") == "student"){
+            navigate("/student");
+            return;
+          } else if(localStorage.getItem("role") == "faculty"){
+            navigate("/faculty");
+            return;
+          } else if(localStorage.getItem("role") == "admin"){
+            navigate("/admin");
+            return;
+          }
+        }
+        navigate("/"); // Replace "/" with the actual path for unauthorized access
+        return;
+      }
+
+      // Add your logic to fetch approval requests if needed
+      console.log("Fetching approval requests...");
+    };
+    console.log("Checking");
+    Check();
+  }, [userId, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

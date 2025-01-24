@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./open_courses.css";
 import "./login.css";
 import Navbar_student from "./navbar_student";
+import { useNavigate } from "react-router-dom";
 
 const OpenCourses = () => {
   const [courses, setCourses] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const userId = localStorage.getItem("_id");
+  const navigate = useNavigate();
+
   const [studentDetails, setStudentDetails] = useState({
       firstName: "",
       lastName: "",
@@ -19,6 +23,25 @@ const OpenCourses = () => {
   // Fetch courses from backend when the component mounts
   useEffect(() => {
     const fetchCourses = async () => {
+      if (!userId || localStorage.getItem("role") !== "student") {
+        console.warn("Unauthorized access. Redirecting...");
+        if(userId){
+          console.log("Inside If");
+          console.log(localStorage.getItem("role"));
+          if(localStorage.getItem("role") == "student"){
+            navigate("/student");
+            return;
+          } else if(localStorage.getItem("role") == "faculty"){
+            navigate("/faculty");
+            return;
+          } else if(localStorage.getItem("role") == "admin"){
+            navigate("/admin");
+            return;
+          }
+        }
+        navigate("/"); // Replace "/" with the actual path for unauthorized access
+        return;
+      }
       try {
         const response = await fetch("http://localhost:5000/api/courses"); // Endpoint for courses
         const data = await response.json();
@@ -100,14 +123,9 @@ const OpenCourses = () => {
                       {course.courseCode} | {course.courseName} | {course.description}
                     </a>
                     <p>                
-                      <strong>Session:</strong> {course.semester}.{" "}
-<<<<<<< Updated upstream
-                      <strong>Offered by:</strong> {course.offeringDept}.{" "}
-                      <strong>Instructor(s):</strong> {course.instructorID.username}.
-=======
-                      <strong>Offered by:</strong> 
-                      {/* <strong>Instructor(s):</strong> {course.instructorID.username}. */}
->>>>>>> Stashed changes
+                      <strong>Session:</strong> {course.semester} | {" "}
+                      <strong>Offered by:</strong> {course.offeringDept} |  
+                      <strong> Instructor(s):</strong> {course.instructorID.username}. 
                     </p>
                   </label>
                   <button onClick={() => handleEnroll(course._id)}>Enroll</button>
