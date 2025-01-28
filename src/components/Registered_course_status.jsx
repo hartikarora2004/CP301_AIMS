@@ -18,6 +18,30 @@ const Registered_course_status = () => {
       category: "",
     });
 
+
+  const handleDrop = async (objectId) => {
+    //const studentId = localStorage.getItem('_id');
+    //console.log("Student ID = ", studentId);
+    //console.log("Object ID = ", objectId);
+    
+    const response = await fetch("http://localhost:5000/api/courses/drop", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ objectId }),
+    });
+  
+    if (response.ok) {
+      const data = await response.json();
+      //setEnrolledCourses((prev) => prev.filter(id => id !== courseId)); // Remove the course from the enrolled list
+      alert(data.message);
+      //navigate("/student/registered-course-status");
+      window.location.reload();
+    } else {
+      const errorData = await response.json();
+      alert(errorData.message);
+    }
+  };
+
   useEffect(() => {
       // Fetch the details for the logged-in student
       
@@ -25,8 +49,8 @@ const Registered_course_status = () => {
         if (!userId || localStorage.getItem("role") !== "student") {
           console.warn("Unauthorized access. Redirecting...");
           if(userId){
-            console.log("Inside If");
-            console.log(localStorage.getItem("role"));
+            //console.log("Inside If");
+            //console.log(localStorage.getItem("role"));
             if(localStorage.getItem("role") == "student"){
               navigate("/student");
               return;
@@ -77,7 +101,7 @@ const Registered_course_status = () => {
       
           const response = await fetch(`http://localhost:5000/api/courses/courseEnrollments?studentId=${studentId}`);
           const data = await response.json();
-          console.log(data);
+          //console.log(data);
           setCourses(data);
         } catch (error) {
           console.error("Error fetching courses:", error);
@@ -98,6 +122,7 @@ const Registered_course_status = () => {
               <th>S#</th>
               <th>Course Title/Code</th>
               <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -112,6 +137,14 @@ const Registered_course_status = () => {
                       : "Pending Advisor Approval"
                     : "Pending Instructor Approval"}
                 </td>
+                <td>
+                <button
+                  className="drop-button"
+                  onClick={() => handleDrop(course._id)}
+                >
+                  Drop
+                </button>
+              </td>
               </tr>
             ))}
           </tbody>

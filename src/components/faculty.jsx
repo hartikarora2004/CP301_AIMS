@@ -9,14 +9,14 @@ function Faculty() {
 
   useEffect(() => {
     const Check = async () => {
-      console.log("User ID:", userId);
-      console.log("Role from localStorage:", localStorage.getItem("role"));
+      //console.log("User ID:", userId);
+      //console.log("Role from localStorage:", localStorage.getItem("role"));
 
       if (!userId || localStorage.getItem("role") !== "faculty") {
         console.warn("Unauthorized access. Redirecting...");
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -33,9 +33,9 @@ function Faculty() {
       }
 
       // Add your logic to fetch approval requests if needed
-      console.log("Fetching approval requests...");
+      //console.log("Fetching approval requests...");
     };
-    console.log("Checking");
+    //console.log("Checking");
     Check();
   }, [userId, navigate]);
 

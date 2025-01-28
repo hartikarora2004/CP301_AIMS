@@ -28,7 +28,7 @@ router.get("/faculty", async (req, res) => {
 router.delete("/students/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
+    //console.log(id);
     const deletedStudent = await User.findByIdAndDelete(id);
 
     if (!deletedStudent) {
@@ -45,7 +45,7 @@ router.delete("/students/:id", async (req, res) => {
 router.delete("/faculty/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
+    //console.log(id);
     const deletedFaculty = await User.findByIdAndDelete(id);
 
     if (!deletedFaculty) {

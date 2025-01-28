@@ -52,4 +52,24 @@
   input[type='checkbox'] {
     cursor: pointer;
   }
+
+  .drop-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
   
+  .drop-button:hover {
+    background-color: #cc0000;
+  }
+  
+  .ApproveTable td:last-child {
+    text-align: center;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+  }

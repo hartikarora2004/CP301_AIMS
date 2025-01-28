@@ -13,12 +13,12 @@ const FacultyCourses = () => {
   useEffect(() => {
     // Fetch the courses for the logged-in faculty
     const fetchFacultyCourses = async () => {
-      console.log(userId, localStorage.getItem("role"));
+      //console.log(userId, localStorage.getItem("role"));
       if (!userId || localStorage.getItem("role") !== "faculty") {
         console.warn("Unauthorized access. Redirecting...");
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -45,7 +45,7 @@ const FacultyCourses = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
+          //console.log(data);
           setCourses(data); // Set the fetched courses in the state
         } else {
           console.error("Failed to fetch courses.");
@@ -87,8 +87,8 @@ const FacultyCourses = () => {
                         <strong>Status: Running  | </strong>
                         <strong>Session:</strong> {result.semester} | {" "}
                         <strong>Offered by:</strong> {result.offeringDept} | {" "}
-                        {console.log(result)}
-                        {console.log(result.instructorID)}
+                        {/* {console.log(result)} */}
+                        {/* {console.log(result.instructorID)} */}
                         <strong>Instructor(s):</strong> {result.instructorID.username}
                       </p>
                     </label>

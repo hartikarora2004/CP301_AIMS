@@ -15,14 +15,14 @@ const CreateFaculty = () => {
 
   useEffect(() => {
     const Check = async () => {
-      console.log("User ID:", userId);
-      console.log("Role from localStorage:", localStorage.getItem("role"));
+      //console.log("User ID:", userId);
+      //console.log("Role from localStorage:", localStorage.getItem("role"));
 
       if (!userId || localStorage.getItem("role") !== "admin") {
         console.warn("Unauthorized access. Redirecting...");
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -39,9 +39,9 @@ const CreateFaculty = () => {
       }
 
       // Add your logic to fetch approval requests if needed
-      console.log("Fetching approval requests...");
+      //console.log("Fetching approval requests...");
     };
-    console.log("Checking");
+    //console.log("Checking");
     Check();
   }, [userId, navigate]);
 
@@ -68,7 +68,7 @@ const CreateFaculty = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Faculty Created:", data);
+        //console.log("Faculty Created:", data);
         alert("Faculty Added Successfully!");
         navigate("/admin");
         setFacultyName("");

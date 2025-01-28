@@ -15,8 +15,8 @@ const Admin = () => {
     useEffect(() => {
       if (!userId || localStorage.getItem("role") != "admin") {
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -41,7 +41,7 @@ const Admin = () => {
     
             const data = await response.json();
             setStudents(data); // Set the fetched students data in the state
-            console.log(data);
+            //console.log(data);
           } catch (error) {
             setError(error.message);
           } finally {
@@ -65,7 +65,7 @@ const Admin = () => {
     
             const data = await response.json();
             setFaculty(data); // Set the fetched Faculty data in the state
-            console.log(data);
+            //console.log(data);
           } catch (error) {
             setError(error.message);
           } finally {
@@ -82,7 +82,7 @@ const Admin = () => {
           const response = await fetch(`/api/admin/students/${id}`, {
             method: "DELETE",
           });
-          console.log(id);
+          //console.log(id);
           const data = await response.json();
     
           if (data.message === "Student deleted successfully") {
@@ -101,7 +101,7 @@ const Admin = () => {
           const response = await fetch(`/api/admin/faculty/${id}`, {
             method: "DELETE",
           });
-          console.log(id);
+          //console.log(id);
           const data = await response.json();
     
           if (data.message === "Faculty deleted successfully") {
@@ -207,7 +207,7 @@ const Admin = () => {
                                                 <td>
                                                 <button className="action-btn edit">Edit</button>
                                                 <button className="action-btn delete" onClick={() => handleDeleteFaculty(faculty._id)}>Delete</button>
-                                                {console.log(faculty._id)}
+                                                {/* {console.log(faculty._id)} */}
                                                 </td>
                                             </tr>
                                             ))

@@ -15,7 +15,7 @@ const Navbar_student = ({ entryNumber }) => {
         <a href="/student/registered-course-status">Registered course status</a>
       </div>
       <div className="profile">
-        {console.log(entryNumber)}
+        {/* {console.log(entryNumber)} */}
         <span>{entryNumber ? `${entryNumber} (Student)` : "Loading..."}</span>
         <Logout />
       </div>

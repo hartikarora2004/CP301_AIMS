@@ -15,14 +15,14 @@ const CreateCourseForm = () => {
 
   useEffect(() => {
     const Check = async () => {
-      console.log("User ID:", userId);
-      console.log("Role from localStorage:", localStorage.getItem("role"));
+      //console.log("User ID:", userId);
+      //console.log("Role from localStorage:", localStorage.getItem("role"));
 
       if (!userId || localStorage.getItem("role") !== "faculty") {
         console.warn("Unauthorized access. Redirecting...");
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -39,16 +39,16 @@ const CreateCourseForm = () => {
       }
 
       // Add your logic to fetch approval requests if needed
-      console.log("Fetching approval requests...");
+      //console.log("Fetching approval requests...");
     };
-    console.log("Checking");
+    //console.log("Checking");
     Check();
   }, [userId, navigate]);
 
 
   useEffect(() => {
     const name = localStorage.getItem('instructorName');
-    console.log("UseEffect: Instructor name from localStorage:", name);
+    //console.log("UseEffect: Instructor name from localStorage:", name);
     if (name) {
       setInstructorName(name);
     }
@@ -56,7 +56,7 @@ const CreateCourseForm = () => {
 
   useEffect(() => {
     if (instructorName) {
-      console.log('Instructor Name:', instructorName); // This will log the updated instructorName
+      //console.log('Instructor Name:', instructorName); // This will log the updated instructorName
     }
   }, [instructorName]);  // This useEffect will run whenever instructorName changes
 
@@ -73,7 +73,7 @@ const CreateCourseForm = () => {
       offeringDept,
     };
     
-    console.log("Course Data:", courseData);
+    //console.log("Course Data:", courseData);
     try {
       const response = await fetch("http://localhost:5000/api/courses", {
         method: "POST",
@@ -82,7 +82,7 @@ const CreateCourseForm = () => {
         },
         body: JSON.stringify(courseData),
       });
-      console.log(response);
+      //console.log(response);
       if (response.ok) {
         alert("Course Created Successfully!");
         setCourseName("");

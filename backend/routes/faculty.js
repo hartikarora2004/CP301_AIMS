@@ -148,7 +148,7 @@ router.get("/faculty-courses", async (req, res) => {
   try {
     const facultyId = req.headers["faculty-id"]; // Assuming faculty ID is passed in headers
 
-    console.log("Get Faculty Requests");
+    //console.log("Get Faculty Requests");
     if (!facultyId) {
       return res.status(400).json({ message: "Faculty ID is required." });
     }
@@ -156,7 +156,7 @@ router.get("/faculty-courses", async (req, res) => {
     const courses = await Course.find({ instructorID: facultyId }).populate(
       "instructorID"
     );
-    console.log(courses);
+    //console.log(courses);
     res.status(200).json(courses);
   } catch (error) {
     console.error("Error fetching faculty courses:", error);

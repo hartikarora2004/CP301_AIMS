@@ -62,12 +62,12 @@ router.post("/students", async (req, res) => {
 router.get("/student-details", async (req, res) => {
   try {
     const student = req.headers["student-id"];
-    console.log(student);
+    //console.log(student);
     if (!student) {
       return res.status(404).json({ message: "Student not found" });
     }
     const studentRecord = await User.findById(student);
-    console.log(studentRecord);
+    //console.log(studentRecord);
     res.json(studentRecord);
   } catch (error) {
     res.status(500).json({ message: "Server error" });

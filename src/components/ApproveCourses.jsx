@@ -11,12 +11,12 @@ const ApproveCourses = () => {
 
   useEffect(() => {
     const fetchApprovalRequests = async () => {
-      console.log(userId, localStorage.getItem("role"));
-      console.log(localStorage.getItem("role") != 'faculty');
+      //console.log(userId, localStorage.getItem("role"));
+      //console.log(localStorage.getItem("role") != 'faculty');
       if (!userId || localStorage.getItem("role") != "faculty") {
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -37,7 +37,7 @@ const ApproveCourses = () => {
         });
         const data = await response.json();
 
-        console.log(data);
+        //console.log(data);
         // Filter data for instructor and advisor approvals
         const instructorData = data.filter(
           (request) =>

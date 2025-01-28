@@ -65,19 +65,19 @@ function Login() {
       });
 
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       if (response.ok) {
         setRole(data.role);
         setUsername(data.username);
         localStorage.setItem('instructorName', data.usrname);
         localStorage.setItem('_id', data._id);
         localStorage.setItem('role', data.role);
-        console.log(data.username);
-        console.log(localStorage.getItem('instructorName'));
-        console.log(localStorage.getItem('_id')); 
+        //console.log(data.username);
+        //console.log(localStorage.getItem('instructorName'));
+        //console.log(localStorage.getItem('_id')); 
         login(); // Call login function to update auth context
         redirectToPage(data.role);
-        console.log(data.role);
+        //console.log(data.role);
       } else {
         setError(data.message);
       }

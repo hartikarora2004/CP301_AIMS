@@ -9,8 +9,8 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { courseName, courseCode, description, semester, _id, offeringDept } =
     req.body;
-  console.log("Starting course registration");
-  console.log(courseName, courseCode, description, semester, _id);
+  //console.log("Starting course registration");
+  //console.log(courseName, courseCode, description, semester, _id);
   if (
     !courseName ||
     !courseCode ||
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
   ) {
     return res.status(400).json({ message: "All fields are required" });
   }
-  console.log(_id);
+  //console.log(_id);
 
   const instructorID = _id;
   const newCourse = new Course({
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
 
 router.get("/courseEnrollments", async (req, res) => {
   try {
-    console.log("GET REQUEST!");
+    //console.log("GET REQUEST!");
     const { studentId } = req.query;
     // const { studentId } = req.query;
     if (!mongoose.Types.ObjectId.isValid(studentId)) {
@@ -64,10 +64,10 @@ router.get("/courseEnrollments", async (req, res) => {
 });
 
 router.post("/enroll", async (req, res) => {
-  console.log("This is an enrollment request");
+  //console.log("This is an enrollment request");
   const { studentId, courseId } = req.body;
-  console.log("Student ID ", studentId);
-  console.log("Course ID ", courseId);
+  //console.log("Student ID ", studentId);
+  //console.log("Course ID ", courseId);
   if (!studentId || !courseId) {
     return res
       .status(400)
@@ -77,7 +77,7 @@ router.post("/enroll", async (req, res) => {
   try {
     // Fetch the student's advisor
     const student = await User.findById(studentId);
-    console.log(student);
+    //console.log(student);
     if (!student) {
       return res
         .status(404)
@@ -121,6 +121,44 @@ router.post("/enroll", async (req, res) => {
     res.status(500).json({ message: "Failed to create enrollment request." });
   }
 });
+
+
+
+router.post("/drop", async (req, res) => {
+  //console.log("This is a drop request");
+  const { objectId } = req.body;
+  //console.log("Student ID: ", studentId);
+  //console.log("Object ID: ", objectId);
+
+  // if (!studentId || !courseId) {
+  //   return res
+  //     .status(400)
+  //     .json({ message: "Student ID and Course ID are required." });
+  // }
+
+  try {
+    // Find the enrollment by matching both studentId and courseId
+    const enrollment = await Enrollment.findOne({ _id:objectId });
+    if (!enrollment) {
+      return res
+        .status(404)
+        .json({ message: "Enrollment not found." });
+    }
+
+    // Delete the enrollment from the database
+    await Enrollment.deleteOne({ _id:objectId});
+
+    res.status(200).json({
+      message: "Enrollment dropped successfully.",
+    });
+  } catch (error) {
+    console.error("Error dropping enrollment:", error);
+    res.status(500).json({ message: "Failed to drop enrollment." });
+  }
+});
+
+
+
 
 router.get("/", async (req, res) => {
   try {

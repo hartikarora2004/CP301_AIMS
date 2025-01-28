@@ -24,8 +24,8 @@ const StudentDetails = () => {
       if (!userId || localStorage.getItem("role") !== "student") {
         console.warn("Unauthorized access. Redirecting...");
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -67,7 +67,7 @@ const StudentDetails = () => {
   return (
     <div className="student-details">
        <Navbar_student entryNumber={studentDetails.entryNo} />
-       {console.log(studentDetails)}
+       {/* {console.log(studentDetails)} */}
       <h2>Student Details</h2>
       <form>
         <div className="form-row">

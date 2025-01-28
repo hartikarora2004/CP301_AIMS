@@ -26,8 +26,8 @@ const OpenCourses = () => {
       if (!userId || localStorage.getItem("role") !== "student") {
         console.warn("Unauthorized access. Redirecting...");
         if(userId){
-          console.log("Inside If");
-          console.log(localStorage.getItem("role"));
+          //console.log("Inside If");
+          //console.log(localStorage.getItem("role"));
           if(localStorage.getItem("role") == "student"){
             navigate("/student");
             return;
@@ -45,7 +45,7 @@ const OpenCourses = () => {
       try {
         const response = await fetch("http://localhost:5000/api/courses"); // Endpoint for courses
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         setCourses(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -84,8 +84,8 @@ const OpenCourses = () => {
 
   const handleEnroll = async (courseId) => {
     const studentId = localStorage.getItem('_id');
-    console.log("Student ID = ", studentId);
-    console.log("Course ID = ", courseId);
+    //console.log("Student ID = ", studentId);
+    //console.log("Course ID = ", courseId);
     const response = await fetch("http://localhost:5000/api/courses/enroll", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
