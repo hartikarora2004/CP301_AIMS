@@ -75,6 +75,10 @@ router.post("/enroll", async (req, res) => {
   }
 
   try {
+    const existingEnrollment = await Enrollment.findOne({studentId, courseId});
+    if (existingEnrollment) {
+      return res.status(400).json({ message: "Enrollment already exists." });
+    }
     // Fetch the student's advisor
     const student = await User.findById(studentId);
     //console.log(student);

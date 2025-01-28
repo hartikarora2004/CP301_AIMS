@@ -31,10 +31,13 @@ router.delete("/students/:id", async (req, res) => {
     //console.log(id);
     const deletedStudent = await User.findByIdAndDelete(id);
 
+
     if (!deletedStudent) {
       return res.status(404).json({ message: "Student not found" });
     }
 
+    await Enrollment.deleteMany({ studentId: id });
+    
     res.json({ message: "Student deleted successfully" });
   } catch (error) {
     console.error("Error deleting student:", error);

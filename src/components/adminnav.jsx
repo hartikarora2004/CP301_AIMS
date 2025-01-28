@@ -7,7 +7,7 @@ const AdminNav = ({ setActiveTab }) => {
     return (
         <nav className="navbar">
             <div className="logo"
-            onClick={() => navigate("/admin")}>AIMS</div>
+            onClick={() => navigate("/admin")}>AIMS:: Academic Information Management System</div>
             <div className="menu">
                 <a onClick={() => setActiveTab('students')}>Manage Students</a>
                 <a onClick={() => setActiveTab('faculty')}>Manage Faculty</a>

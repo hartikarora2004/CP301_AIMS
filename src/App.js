@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from './context/authContext'; 
+import { AuthProvider, useAuth } from './context/authContext'; 
 
 import MainLogin from "./components/mainloginPage.jsx";
 import Faculty from "./components/faculty";
@@ -35,7 +35,6 @@ function App() {
               <Route path="/student/registered-course-status" element={<Registered_course_status />} />
               <Route path="/admin/create-student" element={<CreateStudent />} />
               <Route path="/admin/create-faculty" element={<CreateFaculty />} />
-              <Route path="/create-student" element={<CreateStudent />} />
           </Routes>
         </div>
       </BrowserRouter>

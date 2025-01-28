@@ -19,8 +19,6 @@ const sendOtpEmail = (email, otp) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
-    } else {
-      console.log("OTP sent: " + info.response);
     }
   });
 };
