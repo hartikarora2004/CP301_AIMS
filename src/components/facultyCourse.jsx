@@ -35,7 +35,7 @@ const FacultyCourses = () => {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/faculty/faculty-courses", {
+        const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/faculty/faculty-courses`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

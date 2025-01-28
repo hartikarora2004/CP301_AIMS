@@ -43,7 +43,7 @@ const OpenCourses = () => {
         return;
       }
       try {
-        const response = await fetch("http://localhost:5000/api/courses"); // Endpoint for courses
+        const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/courses`); // Endpoint for courses
         const data = await response.json();
         //console.log(data);
         setCourses(data);
@@ -59,7 +59,7 @@ const OpenCourses = () => {
       // Fetch the details for the logged-in student
       const fetchStudentDetails = async () => {
         try {
-          const response = await fetch("http://localhost:5000/api/student/student-details", {
+          const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/student/student-details`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -86,7 +86,7 @@ const OpenCourses = () => {
     const studentId = localStorage.getItem('_id');
     //console.log("Student ID = ", studentId);
     //console.log("Course ID = ", courseId);
-    const response = await fetch("http://localhost:5000/api/courses/enroll", {
+    const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/courses/enroll`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ studentId, courseId }),

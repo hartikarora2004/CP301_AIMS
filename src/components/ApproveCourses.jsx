@@ -32,7 +32,7 @@ const ApproveCourses = () => {
         return;
       }
       try {
-        const response = await fetch("http://localhost:5000/api/faculty/approval-requests", {
+        const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/faculty/approval-requests`, {
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json();
@@ -62,8 +62,8 @@ const ApproveCourses = () => {
     try {
       const endpoint =
         role === "instructor"
-          ? "http://localhost:5000/api/faculty/approve-instructor"
-          : "http://localhost:5000/api/faculty/approve-advisor";
+          ? `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/faculty/approve-instructor`
+          : `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/faculty/approve-advisor`;
 
       const response = await fetch(endpoint, {
         method: "POST",

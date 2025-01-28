@@ -33,7 +33,7 @@ const Admin = () => {
       }
         const fetchAllStudents = async () => {
           try {
-            const response = await fetch("http://localhost:5000/api/admin/students"); // Endpoint to fetch all students
+            const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/admin/students`); // Endpoint to fetch all students
     
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
@@ -57,7 +57,7 @@ const Admin = () => {
       useEffect(() => {
         const fetchAllFaculty = async () => {
           try {
-            const response = await fetch("http://localhost:5000/api/admin/faculty"); // Endpoint to fetch all faculty
+            const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/admin/faculty`); // Endpoint to fetch all faculty
     
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);

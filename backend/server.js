@@ -5,9 +5,10 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.BACKEND_PORT;
 app.use(cors());
 app.use(bodyParser.json());
 

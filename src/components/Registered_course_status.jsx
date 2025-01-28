@@ -24,7 +24,7 @@ const Registered_course_status = () => {
     //console.log("Student ID = ", studentId);
     //console.log("Object ID = ", objectId);
     
-    const response = await fetch("http://localhost:5000/api/courses/drop", {
+    const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/courses/drop`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ objectId }),
@@ -66,7 +66,7 @@ const Registered_course_status = () => {
           return;
         }
         try {
-          const response = await fetch("http://localhost:5000/api/student/student-details", {
+          const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/student/student-details`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const Registered_course_status = () => {
             return;
           }
       
-          const response = await fetch(`http://localhost:5000/api/courses/courseEnrollments?studentId=${studentId}`);
+          const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/courses/courseEnrollments?studentId=${studentId}`);
           const data = await response.json();
           //console.log(data);
           setCourses(data);

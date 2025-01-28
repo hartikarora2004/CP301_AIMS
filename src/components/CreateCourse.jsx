@@ -75,7 +75,7 @@ const CreateCourseForm = () => {
     
     //console.log("Course Data:", courseData);
     try {
-      const response = await fetch("http://localhost:5000/api/courses", {
+      const response = await fetch(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/courses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
